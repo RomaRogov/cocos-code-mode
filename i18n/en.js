@@ -1,0 +1,1 @@
+"use strict"; module.exports = { open_panel: "Configuration", description: "Cocos Creator MCP Integration for AI Code Mode" };

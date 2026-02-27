@@ -1,0 +1,24 @@
+# AI agent files
+.agent/
+.claude/
+.cursor/
+.aider*
+.copilot/
+
+# Build output
+dist/
+
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.npm
+.yarn/
+package-lock.json
+
+# OS
+.DS_Store
+
+# Packaged extension
+*.zip

@@ -1,0 +1,48 @@
+<ui-prop-split class="panel" position="38.2" indent="24px" min-limit="60px,85px">
+
+    <!-- Port Section -->
+    <ui-section class="config" header="Server Configuration" expand>
+        <ui-prop>
+            <ui-label slot="label" class="label">Server Port</ui-label>
+            <ui-num-input slot="content" id="port-input" value="3000" step="1"></ui-num-input>
+            <ui-button slot="content" id="save-port-btn" class="blue">Update</ui-button>
+        </ui-prop>
+    </ui-section>
+
+    <!-- UTCP Config Section -->
+    <ui-section class="config" header="UTCP Configuration" expand>
+        <ui-prop>
+            <ui-label slot="label" class="label">Config Path</ui-label>
+            <ui-input slot="content" id="utcp-config-path" class="flex-1"></ui-input>
+            <ui-button type="icon" slot="content" id="save-utcp-path-btn" class="green"><ui-icon
+                    value="check"></ui-icon></ui-button>
+        </ui-prop>
+
+        <div class="group-header">Bridge Templates</div>
+        <div id="bridge-container" class="list-container">
+            <!-- Templates injected here -->
+        </div>
+
+        <div class="group-header mt-10">Add New Template</div>
+        <div class="add-template-container">
+            <ui-textarea id="new-template-json" placeholder="UTCP Call Template" rows="5"></ui-textarea>
+            <div class="actions right">
+                <ui-button id="add-bridge-btn" class="green">
+                    <ui-icon value="add"></ui-icon> Add Template
+                </ui-button>
+            </div>
+        </div>
+    </ui-section>
+
+    <!-- MCP Integration Section -->
+    <ui-section class="config" header="MCP Agent Integration" expand>
+        <div class="desc-container">
+            <span class="desc">Configure your AI agent by adding this server to MCP config
+                config. Config example:</span>
+        </div>
+        <div class="code-container">
+            <ui-code language="json" id="mcp-config-code"></ui-code>
+        </div>
+    </ui-section>
+
+</ui-prop-split>

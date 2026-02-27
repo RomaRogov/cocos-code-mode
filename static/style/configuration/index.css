@@ -1,0 +1,104 @@
+.panel {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: 10px;
+    gap: 10px;
+    overflow-y: auto;
+}
+
+ui-prop-split {
+    --ui-prop-margin-left: 24px;
+    --ui-prop-label-width-min: 60px;
+    --ui-prop-label-width-max: 289px;
+    --left-width: 38.2%;
+}
+
+.section {
+    margin-bottom: 10px;
+}
+
+.desc-container {
+    padding: 5px 10px;
+    color: var(--color-text-normal);
+    opacity: 0.8;
+    margin-bottom: 5px;
+}
+
+.code-container {
+    margin-top: 5px;
+}
+
+.list-container {
+    padding: 0;
+    max-height: 400px;
+    overflow-y: auto;
+    margin-bottom: 15px;
+}
+
+.bridge-item-section {
+    margin-bottom: 5px;
+    border: 1px solid var(--color-normal-border-weak);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.bridge-item-content {
+    padding: 10px;
+    background: var(--color-normal-fill-calmer);
+}
+
+.bridge-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 5px;
+}
+
+.actions.right {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 5px;
+}
+
+ui-button.blue {
+    color: white;
+}
+
+ui-button.green {
+    color: white;
+}
+
+ui-prop {
+    margin-top: 10px;
+}
+
+.transparent {
+    background: transparent;
+    border: none;
+}
+
+.group-header {
+    font-weight: bold;
+    color: var(--color-text-normal);
+    margin-bottom: 5px;
+    margin-top: 10px;
+    padding-left: 5px;
+}
+
+.mt-10 {
+    margin-top: 10px;
+}
+
+.add-template-container {
+    padding: 0 5px;
+}
+
+ui-prop ui-button {
+    margin-left: 10px;
+}
+
+#save-utcp-path-btn {
+    max-width: 24px;
+    padding: 0 4px;
+    height: 24px;
+}

@@ -1,0 +1,100 @@
+{
+  "$schema": "./@types/schema/package/index.json",
+  "package_version": 2,
+  "name": "cocos-code-mode",
+  "version": "1.0.0",
+  "author": "Roman Rogov",
+  "editor": ">=3.8.7",
+  "scripts": {
+    "preinstall": "node ./scripts/preinstall.js",
+    "build": "npx tsc",
+    "package": "npm run build && node ./scripts/package.js"
+  },
+  "description": "i18n:cocos-code-mode.description",
+  "main": "./dist/main.js",
+  "dependencies": {
+    "@types/sharp": "^0.31.1",
+    "@utcp/http": "^1.1.0",
+    "@utcp/sdk": "^1.1.0",
+    "cors": "^2.8.6",
+    "express": "^5.2.1",
+    "fs-extra": "^10.0.0",
+    "sharp": "^0.34.5",
+    "zod": "^4.2.1"
+  },
+  "devDependencies": {
+    "@cocos/creator-types": "^3.8.7",
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.6",
+    "@types/fs-extra": "^9.0.5",
+    "@types/node": "^18.17.1",
+    "typescript": "^5.8.2"
+  },
+  "panels": {
+    "configuration": {
+      "title": "Configuration",
+      "type": "dockable",
+      "main": "dist/panels/configuration",
+      "size": {
+        "min-width": 400,
+        "min-height": 300,
+        "width": 1024,
+        "height": 600
+      }
+    },
+    "preview": {
+      "title": "Asset Preview",
+      "type": "dockable",
+      "main": "dist/panels/preview",
+      "size": {
+        "min-width": 200,
+        "min-height": 200,
+        "width": 400,
+        "height": 400
+      }
+    }
+  },
+  "contributions": {
+    "scene": {
+      "script": "./dist/scene.js"
+    },
+    "menu": [
+      {
+        "path": "Code Mode",
+        "label": "i18n:cocos-code-mode.open_panel",
+        "message": "open-panel"
+      }
+    ],
+    "messages": {
+      "open-panel": {
+        "methods": [
+          "openPanel"
+        ]
+      },
+      "open-preview-panel": {
+        "methods": [
+          "openPreviewPanel"
+        ]
+      },
+      "preview-asset": {
+        "methods": [
+          "preview.previewAsset"
+        ]
+      },
+      "generate-preview": {
+        "methods": [
+          "preview.generatePreview"
+        ]
+      },
+      "restart-server": {
+        "methods": [
+          "restartServer"
+        ]
+      }
+    }
+  },
+  "creator": {
+    "version": "3.8.7"
+  },
+  "uuid": "b401b190-c2a1-4149-9250-a0ed22e1968b"
+}
