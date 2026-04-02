@@ -1,6 +1,6 @@
 const fs = require('fs');
 const path = require('path');
-const { execSync } = require('child_process');
+const archiver = require('archiver');
 
 // Read package.json to get the package name
 const packageJsonPath = path.join(__dirname, '../package.json');
@@ -38,20 +38,34 @@ if (missingItems.length > 0) {
 
 console.log(`Packaging project into ${zipFileName}...`);
 
-// Construct the zip command
-// zip -r outputFile inputFiles...
-// We execute this in the project root so paths are relative.
-const includeArgs = filesToInclude.map(f => `'${f}'`).join(' ');
-const command = `zip -r '${zipFileName}' ${includeArgs}`;
+function createPackage(root, zipName, items) {
+  const outputPath = path.join(root, zipName);
 
-try {
-    // Run the zip command
-    execSync(command, { 
-        cwd: projectRoot, 
-        stdio: 'inherit' 
-    });
-    console.log(`\nPackage created successfully: ${path.join(projectRoot, zipFileName)}`);
-} catch (error) {
+  return new Promise((resolve, reject) => {
+    const output = fs.createWriteStream(outputPath);
+    const archive = archiver('zip');
+
+    output.on('close', () => resolve(outputPath));
+    output.on('error', (error) => reject(error));
+    archive.on('error', (error) => reject(error));
+    archive.pipe(output);
+
+    for (const item of items) {
+      const fullPath = path.join(root, item);
+      fs.statSync(fullPath).isDirectory()
+        ? archive.directory(fullPath, item)
+        : archive.file(fullPath, { name: item });
+    }
+
+    archive.finalize();
+  });
+}
+
+createPackage(projectRoot, zipFileName, filesToInclude)
+  .then((outputPath) =>
+    console.log(`\nPackage created successfully: ${outputPath}`),
+  )
+  .catch((error) => {
     console.error('Error creating package:', error.message);
     process.exit(1);
-}
+  });
