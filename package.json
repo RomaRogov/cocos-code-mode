@@ -13,13 +13,13 @@
   "description": "i18n:cocos-code-mode.description",
   "main": "./dist/main.js",
   "dependencies": {
-    "@types/sharp": "^0.31.1",
+
     "@utcp/http": "^1.1.0",
     "@utcp/sdk": "^1.1.0",
     "cors": "^2.8.6",
     "express": "^5.2.1",
     "fs-extra": "^10.0.0",
-    "sharp": "^0.34.5",
+    "jimp": "^0.22.12",
     "zod": "^4.2.1"
   },
   "devDependencies": {
@@ -28,7 +28,8 @@
     "@types/express": "^5.0.6",
     "@types/fs-extra": "^9.0.5",
     "@types/node": "^18.17.1",
-    "typescript": "^5.8.2"
+    "typescript": "^5.8.2",
+    "@zip.js/zip.js": "^2.6.2"
   },
   "panels": {
     "configuration": {

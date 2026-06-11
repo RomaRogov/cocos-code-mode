@@ -1,5 +1,5 @@
 import packageJSON from '../../../package.json';
-import sharp from 'sharp';
+import Jimp from 'jimp';
 import fs from 'fs-extra';
 import { utcpTool } from '../decorators';
 import { AssetInfo, AssetOperationOption } from '@cocos/creator-types/editor/packages/asset-db/@types/public';
@@ -440,31 +440,24 @@ export class AssetTools {
 
         if (sourcePath && fs.existsSync(sourcePath)) {
             try {
-                const image = sharp(sourcePath);
-                const metadata = await image.metadata();
+                const image = await Jimp.read(sourcePath);
                 const requestedSize = args.imageSize || 512;
-                let processed = image;
 
-                if (
-                    (metadata.width && metadata.width > requestedSize) ||
-                    (metadata.height && metadata.height > requestedSize)
-                ) {
-                    processed = processed.resize(requestedSize, requestedSize, { fit: 'contain', background: { r: 0, g: 0, b: 0, alpha: 0 } });
+                if (image.bitmap.width > requestedSize || image.bitmap.height > requestedSize) {
+                    image.contain(requestedSize, requestedSize);
                 }
 
-                let buffer;
-                if ((metadata.format === 'png' || metadata.hasAlpha)) {
-                    buffer = await processed.flatten({ background: args.transparentColor })
-                        .jpeg({ quality: args.jpegQuality || 80 })
-                        .toBuffer();
-                } else {
-                    buffer = await processed
-                        .jpeg({ quality: args.jpegQuality || 80 })
-                        .toBuffer();
-                }
+                // Flatten alpha: composite the image onto a solid background
+                const { r, g, b } = args.transparentColor!;
+                const bgColor = Jimp.rgbaToInt(r, g, b, 255);
+                const bg = await Jimp.create(image.bitmap.width, image.bitmap.height, bgColor);
+                bg.composite(image, 0, 0);
+
+                bg.quality(args.jpegQuality || 80);
+                const buffer = await bg.getBufferAsync(Jimp.MIME_JPEG);
                 return { type: "image", data: buffer.toString('base64'), mimeType: "image/jpeg" };
             } catch (e) {
-                console.error(`Failed to process image from ${sourcePath} with sharp:`, e);
+                console.error(`Failed to process image from ${sourcePath} with jimp:`, e);
             }
         }
 
