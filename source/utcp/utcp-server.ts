@@ -3,7 +3,7 @@ import cors from 'cors';
 import { ToolRegistry } from './decorators';
 import './tools/typescript-defenition';
 import './tools/get-properties-tool';
-import './tools/set-property-tool';
+import './tools/set-properties-tool';
 import './tools/asset-tools';
 import './tools/component-tools';
 import './tools/scene-tools';
